@@ -1,0 +1,13 @@
+# An array is a collection of items of same data type stored at contiguous memory locations. 
+
+# Array elements are accessed with the help of indexes which usually begins with zero.
+
+Advantages:
+
+1) Random Access -> Array allows to access each element of array in constant time i.e., O(1) operation.
+                  example:  To access 2 index element we can write arr[2].
+   
+   
+2) Cache Friendliness -> This is only possible in arrays and not in any other data structure. Processors usually pre-fetch the items in nearby locations which is possible in array due to contiguous memory locations. 
+                         This makes it faster as next element is very likely to be in the cache.
+   This makes it easier to calculate the position of each element by simply adding an offset to a base value, i.e., the memory location of the first element of the array (generally denoted by the name of the array).
