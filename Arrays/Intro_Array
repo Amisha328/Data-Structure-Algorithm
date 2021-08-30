@@ -11,3 +11,32 @@ Advantages:
 2) Cache Friendliness -> This is only possible in arrays and not in any other data structure. Processors usually pre-fetch the items in nearby locations which is possible in array due to contiguous memory locations. 
                          This makes it faster as next element is very likely to be in the cache.
    This makes it easier to calculate the position of each element by simply adding an offset to a base value, i.e., the memory location of the first element of the array (generally denoted by the name of the array).
+
+Types of Array(based on size):
+
+1) Fixed sized array:
+
+   int arr[100]; // Stack Allocated
+   int arr[n]; // Stack Allocated
+   int *arr = new int[n]; // Heap Allocated
+   int arr[] = {10,20,30}; // Stack Allocated
+
+Note:  In C and C++ Fixed sized array are allocated memory in two ways:
+       o Stack Allocation
+       O Heap Allocation
+
+       But in Java things are simpler -> arrays are always allocated in Heap
+
+        int[] arr = new int[100];
+        int[] arr = new int[n];
+        int arr[] = {10,20,30};
+
+2) Dynamic Sized Array: 
+
+   Automatically resized, we have this fixability that we need not know the size of array in advance.
+   
+        C++ : vector
+        Java : ArrayList
+	Python: list
+
+    here also the complexity of insertion remains O(1) like a fixed size array.
