@@ -35,5 +35,5 @@ int main()
         return 0;
 } 
 
-// Expected Time Complexity: O(n*m).
-// Expected Auxiliary Space: O(n*m)
+// Time Complexity: O(n*m).
+// Auxiliary Space: O(n*m)
