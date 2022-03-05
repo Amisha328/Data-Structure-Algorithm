@@ -70,12 +70,8 @@ class Solution
 
 
 };
-
-// { Driver Code Starts.
-
 int main()
  {
-        //reading number of elements and weight
         int n, w;
         cin>>n>>w;
         
