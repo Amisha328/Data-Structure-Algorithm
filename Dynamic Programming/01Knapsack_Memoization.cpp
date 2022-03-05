@@ -4,6 +4,32 @@ using namespace std;
 class Solution
 {
     public:
+      // Striver Solution:
+      // // TC->O(N*maxWeight) | SC->O(N*maxWeight) + O(N)
+      int solve(vector<int> &weight, vector<int> &value, int idx, int W, vector<vector<int>> &dp)
+      {
+          if(idx == 0)
+          {
+              if(weight[0] <= W) return value[0];
+              else return 0;
+          }
+          if(dp[idx][W] != -1) return dp[idx][W];
+          
+          int not_take = 0 + solve(weight, value, idx-1, W, dp);
+          int take = -1e3;
+          if(weight[idx] <= W) 
+              take = value[idx] + solve(weight, value, idx-1, W-weight[idx], dp);
+          
+          return dp[idx][W] = max(take, not_take);
+      }
+      int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+      {
+          vector<vector<int>> dp(n, vector<int>(maxWeight+1, -1));
+          return solve(weight, value, n-1, maxWeight, dp);
+      }
+      
+    /*
+    // Aditya Verma Solution:
     //Function to return max value that can be put in knapsack of capacity W.
     int knapSackRec(int W, int wt[], int val[], int n, int** dp)
     {
@@ -40,6 +66,9 @@ class Solution
           return knapSackRec(W, wt, val, n, dp);
        
     }
+    */
+
+
 };
 
 // { Driver Code Starts.
@@ -50,11 +79,11 @@ int main()
         int n, w;
         cin>>n>>w;
         
-        int val[n];
-        int wt[n];
+        vector<int> wt(n);
+        vector<int> val(n);
         
         //inserting the values
-        for(int i=0;i<n;i++)
+        for(int i = 0;i<n;i++)
             cin>>val[i];
         
         //inserting the weights
@@ -62,10 +91,7 @@ int main()
             cin>>wt[i];
         Solution ob;
         //calling method knapSack()
-        cout<<ob.knapSack(w, wt, val, n)<<endl;
+        cout<<ob.knapsack(wt, val, n, w)<<endl;
         
         return 0;
 } 
-
-// Expected Time Complexity: O(N*W).
-// Expected Auxiliary Space: O(N*W)
