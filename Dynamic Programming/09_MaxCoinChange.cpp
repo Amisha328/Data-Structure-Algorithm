@@ -1,4 +1,5 @@
 // Problem Statement: https://practice.geeksforgeeks.org/problems/coin-change-number-of-ways/1/
+// https://www.codingninjas.com/codestudio/problem-details/ways-to-make-coin-change_630471
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -6,33 +7,74 @@ using namespace std;
 class Solution
 {
     public:
-    
-    long long numberOfWays(int coins[],int n,int value)
+    // Memoization: TC-> O(N * tar) | SC-> O(N * tar) + O(N)
+    /*
+    long solve(int num[], int idx, int value, vector<vector<long>> &dp)
     {
+        if(idx == 0)
+            return (value%num[idx] == 0);
+        if(dp[idx][value] != -1) return dp[idx][value];
+        long not_take = solve(num, idx-1, value, dp);
+        long take = 0;
+        if(num[idx] <= value) 
+            take = solve(num, idx, value-num[idx], dp);
         
-        int dp[n+1][value+1];
-        for(int i = 0; i <= n; i++)
+        return dp[idx][value] = (take + not_take);
+    }
+    long countWaysToMakeChange(int num[], int n, int value)
+    {
+       vector<vector<long>> dp(n, vector<long>(value+1, -1));
+       return solve(num, n-1, value, dp);
+    }
+    */
+
+    /*
+    // Tabulation: TC-> O(N * tar) | SC-> O(N * tar)
+    long countWaysToMakeChange(int num[], int n, int value)
+    {
+        vector<vector<long>> dp(n, vector<long>(value+1, 0));
+        for(int T = 0; T <= value; T++)
+            dp[0][T] = (T%num[0] == 0);
+        for(int idx = 1; idx < n; idx++)
         {
-            for(int j = 0; j <= value; j++)
+            for(int T = 0; T <= value; T++)
             {
-                if(i == 0)
-                    dp[i][j] = 0;
-                else
-                    dp[i][j] = 1;
+                long not_take = dp[idx-1][T];
+                long take = 0;
+                if(num[idx] <= T) 
+                    take = dp[idx][T-num[idx]];
+
+                dp[idx][T] = (take + not_take);
             }
         }
-        for(int i = 1; i<= n; i++)
+        
+        return dp[n-1][value];
+    }
+    */
+
+    // Space Optimization: TC-> O(N * tar) | SC-> O(tar)
+    long countWaysToMakeChange(int num[], int n, int value)
+    {
+        vector<long> prev(value+1, 0);
+        vector<long> curr(value+1, 0);
+        
+        for(int T = 0; T <= value; T++)
+            prev[T] = (T%num[0] == 0);
+        for(int idx = 1; idx < n; idx++)
         {
-            for(int j = 1; j <= value; j++)
+            for(int T = 0; T <= value; T++)
             {
-                if(coins[i-1] <= j)
-                    dp[i][j] = dp[i][j-coins[i-1]] + dp[i-1][j];
-                else
-                    dp[i][j] = dp[i-1][j];
+                long not_take = prev[T];
+                long take = 0;
+                if(num[idx] <= T) 
+                    take = curr[T-num[idx]];
+
+                curr[T] = (take + not_take);
             }
+            prev = curr;
         }
         
-        return dp[n][value];
+        return prev[value];
     }
 };
 
@@ -52,7 +94,7 @@ int main() {
 	    cin>>coins[i];
 	    Solution obj;
 	    //calling function numberOfWays
-	    cout<<obj.numberOfWays(coins,numberOfCoins,value)<<endl;
+	    cout<<obj.countWaysToMakeChange(coins,numberOfCoins,value)<<endl;
 	    
 	return 0;
-}  // } Driver Code Ends
+}
