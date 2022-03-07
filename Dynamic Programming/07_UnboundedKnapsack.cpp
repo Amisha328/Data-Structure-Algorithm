@@ -1,4 +1,6 @@
-// problem statement: https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1/#
+// problem statement: 
+// https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1/#
+// https://www.codingninjas.com/codestudio/problem-details/unbounded-knapsack_1215029
 
 #include <bits/stdc++.h>
 using namespace std;
