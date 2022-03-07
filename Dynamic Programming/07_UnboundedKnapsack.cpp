@@ -6,31 +6,94 @@ using namespace std;
 
 class Solution{
 public:
-    int knapSack(int N, int W, int val[], int wt[])
+    /*
+    // Memoization: TC-> O(N * W) | SC-> O(N * W) + O(N)
+    int solve(int idx, int w, vector<int> &val, vector<int> &wt, vector<vector<int>> &dp)
     {
-        // code here
-        int dp[N+1][W+1];
-        for(int i = 0; i <= N; i++)
+        if(idx == 0)
+            return (w/wt[0])*val[0];
+        if(dp[idx][w] != -1) return dp[idx][w];
+        int not_take = 0 + solve(idx-1, w, val, wt, dp);
+        int take = 0;
+        if(wt[idx] <= w)
+            take = val[idx] + solve(idx, w-wt[idx], val, wt, dp);
+        
+        return dp[idx][w] = max(take, not_take);
+    }
+    int unboundedKnapsack(int n, int w, vector<int> &val, vector<int> &wt)
+    {
+        vector<vector<int>> dp(n, vector<int>(w+1, -1));
+        return solve(n-1, w, val, wt, dp);
+    }
+    */
+
+    /*
+    // Tabulation: TC-> O(N * W) | SC-> O(N * W)
+    int unboundedKnapsack(int n, int w, vector<int> &val, vector<int> &wt)
+    {
+        vector<vector<int>> dp(n, vector<int>(w+1, 0));
+        for(int W = 0; W <= w; W++)
+            dp[0][W] = (W/wt[0])*val[0];
+        for(int idx = 1; idx < n; idx++)
         {
-            for(int j = 0; j <= W; j++)
+            for(int W = 0; W <= w; W++)
             {
-                if(i == 0 || j == 0)
-                    dp[i][j] = 0;
+                int not_take = 0 + dp[idx-1][W];
+                int take = 0;
+                if(wt[idx] <= W)
+                    take = val[idx] + dp[idx][W-wt[idx]];
+
+                dp[idx][W] = max(take, not_take);
             }
         }
-        
-        for(int i = 1; i<= N; i++)
+        return dp[n-1][w];
+    }
+    */
+
+    /*
+    // Space Optimization: TC-> O(N * W) | SC-> O(2 * W)
+    int unboundedKnapsack(int n, int w, vector<int> &val, vector<int> &wt)
+    {
+        vector<int> prev(w+1, 0);
+        vector<int> curr(w+1, 0);
+        for(int W = 0; W <= w; W++)
+            prev[W] = (W/wt[0])*val[0];
+        for(int idx = 1; idx < n; idx++)
         {
-            for(int j = 1; j <= W; j++)
+            for(int W = 0; W <= w; W++)
             {
-                if(wt[i-1] <= j)
-                    dp[i][j] = max(val[i-1] + dp[i][j-wt[i-1]], dp[i-1][j]);
-                else
-                    dp[i][j] = dp[i-1][j];
+                int not_take = 0 + prev[W];
+                int take = 0;
+                if(wt[idx] <= W)
+                    take = val[idx] + curr[W-wt[idx]];
+
+                curr[W] = max(take, not_take);
+            }
+            prev = curr;
+        }
+        return prev[w];
+    }
+    */
+   
+   // Most optimized code: TC-> O(N * W) | SC-> O(W)
+   int unboundedKnapsack(int n, int w, vector<int> &val, vector<int> &wt)
+    {
+        vector<int> curr(w+1, 0);
+        for(int W = 0; W <= w; W++)
+            curr[W] = (W/wt[0])*val[0];
+        for(int idx = 1; idx < n; idx++)
+        {
+            for(int W = 0; W <= w; W++)
+            {
+                int not_take = 0 + curr[W];
+                int take = 0;
+                if(wt[idx] <= W)
+                    take = val[idx] + curr[W-wt[idx]];
+
+                curr[W] = max(take, not_take);
             }
         }
-        
-        return dp[N][W];
+        return curr[w];
     }
 };
 
@@ -39,13 +102,13 @@ int main()
 {
         int N, W;
         cin>>N>>W;
-        int val[N], wt[N];
+        vector<int> val(N), wt(N);
         for(int i = 0;i < N;i++)
             cin>>val[i];
         for(int i = 0;i < N;i++)
             cin>>wt[i];
         
         Solution ob;
-        cout<<ob.knapSack(N, W, val, wt)<<endl;
+        cout<<ob.unboundedKnapsack(N, W, val, wt)<<endl;
     return 0;
 }
