@@ -1,4 +1,4 @@
-// Longest Common Subsequence - Bottom-up approach
+// Longest Common Subsequence - Tabulation (Bottom-up approach)
 
 // Problem Statement: https://leetcode.com/problems/longest-common-subsequence/
 // https://www.codingninjas.com/codestudio/problem-details/longest-common-subsequence_1063255
