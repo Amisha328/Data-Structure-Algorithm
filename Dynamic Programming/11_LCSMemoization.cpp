@@ -36,4 +36,4 @@ int main()
 } 
 
 // Time Complexity: O(n*m).
-// Auxiliary Space: O(n*m)
+// Auxiliary Space: O(n*m) + O(n+m)
