@@ -1,6 +1,7 @@
 // Next Permutation
 // Problem link:
 // https://leetcode.com/problems/next-permutation/
+// https://practice.geeksforgeeks.org/problems/next-permutation5226/1
 
 class Solution {
 public:
