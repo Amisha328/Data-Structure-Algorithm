@@ -1,6 +1,10 @@
 // Trapping Rain Water
 // Problem Statement:
 // Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+// Problem link:
+// https://www.codingninjas.com/codestudio/problems/trapping-rainwater_630519?leftPanelTab=0
+// https://leetcode.com/problems/trapping-rain-water/
+// https://practice.geeksforgeeks.org/problems/trapping-rain-water-1587115621/1
 
 #include<bits/stdc++.h>
 using namespace std;
