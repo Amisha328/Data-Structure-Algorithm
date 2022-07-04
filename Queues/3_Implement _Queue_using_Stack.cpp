@@ -1,4 +1,9 @@
 // Implement Queue Using Stack
+// Problem link:
+// https://leetcode.com/problems/implement-queue-using-stacks/
+// https://www.codingninjas.com/codestudio/problem-details/queue-using-stack_799482
+// https://practice.geeksforgeeks.org/problems/queue-using-stack/1/
+
 
 // TC-> O(1) : push
 // TC-> O(1) : amotized for pop and top
