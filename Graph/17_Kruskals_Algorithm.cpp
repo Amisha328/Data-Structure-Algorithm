@@ -3,9 +3,11 @@
 // Problem link: 
 // https://practice.geeksforgeeks.org/problems/minimum-spanning-tree/1#
 // https://leetcode.com/problems/redundant-connection/
+// https://www.codingninjas.com/codestudio/problems/minimum-spanning-tree_631769?leftPanelTab=0
 
 #include<bits/stdc++.h>
 using namespace std;
+
 // TC-> O(ElogE) || SC-> O(V)
 struct node
 {
@@ -102,4 +104,63 @@ int main()
     return 0;
 }
 
-  // } Driver Code Ends
+// Another way to write the same code
+// SC -> O(M)
+class DisjointSet{
+          vector<int> sizes, parent;
+          public:
+          DisjointSet(int n){
+                    sizes.resize(n+1, 1);
+                    parent.resize(n+1);
+                    for(int i = 0; i <= n; i++)
+                              parent[i] = i;
+          }
+
+          int findPar(int node){
+                    if(node == parent[node]) return node;
+                    return parent[node] = findPar(parent[node]);
+          }
+          void unionBySize(int u, int v){
+                    int ulp_u = findPar(u);
+                    int ulp_v = findPar(v);
+                    if(ulp_u == ulp_v) return;
+                    if(sizes[ulp_u] < sizes[ulp_v]){
+                              parent[ulp_u] = ulp_v;
+                              sizes[ulp_v] += sizes[ulp_u];
+                    } else {
+                              parent[ulp_v] = ulp_u;
+                              sizes[ulp_u] += sizes[ulp_v];
+                    }
+          }
+};
+class Solution
+{
+	public:
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+    int spanningTree(int V, vector<vector<int>> adj[])
+    {
+        
+        vector<pair<int, pair<int, int>>> edges; 
+        // O(N + M)
+        for(int i = 0; i < V; i++){
+            for(auto it: adj[i]){
+                edges.push_back({it[1], {i, it[0]}});
+            }
+        }
+        
+        sort(edges.begin(), edges.end()); // O(M log M)
+        DisjointSet ds(V);
+        int mstCost = 0;
+        // O(M * 4 * alpha)
+        for(auto it: edges){
+            int u = it.second.first;
+            int v = it.second.second;
+            int w = it.first;
+            if(ds.findPar(u) != ds.findPar(v)){
+              mstCost += w;
+              ds.unionBySize(u, v);
+            }
+         }
+         return mstCost;
+    }
+};
