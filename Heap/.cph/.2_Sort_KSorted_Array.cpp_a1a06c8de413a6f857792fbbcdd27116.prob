@@ -1,0 +1,1 @@
+{"name":"Local: 2_Sort_KSorted_Array","url":"d:\\VS CodeLabs\\DS&A\\Heap\\2_Sort_KSorted_Array.cpp","tests":[{"id":1652529771589,"input":"5 2\n9 8 7 19 18","output":"7 8 9 18 19"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VS CodeLabs\\DS&A\\Heap\\2_Sort_KSorted_Array.cpp","group":"local","local":true}

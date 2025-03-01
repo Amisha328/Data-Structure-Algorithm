@@ -1,0 +1,1 @@
+{"name":"Local: 4_Kth_Smallest_Element","url":"d:\\VS CodeLabs\\DS&A\\Heap\\4_Kth_Smallest_Element.cpp","tests":[{"id":1652628804877,"input":"6 3\n7 10 4 3 20 15","output":"7"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\VS CodeLabs\\DS&A\\Heap\\4_Kth_Smallest_Element.cpp","group":"local","local":true}

@@ -1,6 +1,9 @@
 // Longest Bitonic subsequence  - Problems based on the Longest Increasing Subsequence concept.
 // Problem Statement: https://www.geeksforgeeks.org/longest-bitonic-subsequence-dp-15/
-// Problem linK: https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
+// Problem linK: 
+// https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
+// https://www.codingninjas.com/codestudio/problems/longest-bitonic-sequence_1062688?leftPanelTab=0
+// https://practice.geeksforgeeks.org/problems/longest-bitonic-subsequence0824/1
 
 
 #include<bits/stdc++.h>
@@ -11,38 +14,28 @@ class Solution{
 	
 	int LongestBitonicSequence(vector<int>nums)
 	{
-	    int n = nums.size();
-	    int lis[n], lds[n];
-	    
-	    lis[0] = 1;
-	    lds[n-1] = 1;
-	    
-	    for(int i = 1; i < n; i++)
-	    {
-	        lis[i] = 1;
-	        for(int j = 0; j < i; j++)
-	        {
-	            if(nums[j] < nums[i])
-	                lis[i] = max(lis[i], lis[j]+1);
-	        }
-	    }
-	     for(int i = n-2; i >= 0; i--)
-	     {
-	         lds[i] = 1;
-	        for(int j = n-1; j > i; j--)
-	        {
-	            if(nums[j] < nums[i])
-	                lds[i] = max(lds[i], lds[j]+1);
-	        }
-	    }
-	    
-	    int ans = 0;
-	    for(int i = 0; i < n; i++)
-	    {
-	        ans = max(ans, lis[i]+lds[i]-1);
-	    }
-	    
-	    return ans;
+	   int n = nums.size();
+	   vector<int> dp1(n, 1);
+	   for(int i = 0; i < n; i++){
+	       for(int prev = 0; prev < i; prev++){
+	           if(nums[i] > nums[prev] && 1 + dp1[prev] > dp1[i]){
+	               dp1[i] = 1 + dp1[prev];
+	           }
+	       }
+	   }
+	   vector<int> dp2(n, 1);
+	   for(int i = n-1; i >= 0; i--){
+	       for(int prev = n-1; prev > i; prev--){
+	           if(nums[i] > nums[prev] && 1 + dp2[prev] > dp2[i]){
+	               dp2[i] = 1 + dp2[prev];
+	           }
+	       }
+	   }
+	   int ans = 0;
+	   for(int i = 0; i < n; i++){
+	       ans = max(ans, dp1[i]+dp2[i]-1);
+	   }
+	   return ans;
 	}
 };
 
